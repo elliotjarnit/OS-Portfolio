@@ -3,17 +3,19 @@
 
 <template>
   <main>
-    <div class="absolute top-0 h-full">
+    <div
+      class="absolute top-0 grid grid-cols-1 place-items-center w-full h-full"
+    >
       <div
-        class="relative h-[100] w-[300] font-['Ubuntu Mono'] text-white text-3xl p-2 w-100 tracking-wide"
+        class="relative h-[100] w-[300] font-['Ubuntu Mono'] text-white text-3xl p-2 w-100 tracking-wider"
       >
-        Hi! my name is, <br />
-        Elliot
+        Hi! My name is, <br />
+        Elliot:~$&nbsp;&nbsp;
         <div
           class="relative inline right-2 bg-red-500"
           :style="{ opacity: cursorShown ? '1' : '0' }"
         >
-          &nbsp;
+          &nbsp;&nbsp;
         </div>
       </div>
     </div>
