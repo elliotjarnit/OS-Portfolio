@@ -12,6 +12,7 @@
     "pinia": "^2.0.14",
     "quasar": "^2.7.4",
     "vue": "^3.2.36",
+    "vue-animate-onscroll": "^1.0.8",
     "vue-router": "^4.0.15"
   },
   "devDependencies": {
