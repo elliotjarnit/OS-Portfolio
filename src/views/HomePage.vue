@@ -17,6 +17,8 @@
         >
           &nbsp;&nbsp;
         </div>
+        <br /><br />
+        This website is currently a work in progress...
       </div>
     </div>
   </main>
