@@ -1,8 +1,8 @@
 import { createApp } from "vue";
 import { createPinia } from "pinia";
-import "./assets/base.css";
+import "./assets/base.scss";
 import { Quasar } from "quasar";
-import { VueAnimateOnScroll } from "vue-animate-onscroll";
+import VueAnimateOnScroll from "vue-animate-onscroll";
 
 import App from "./App.vue";
 import router from "./router";

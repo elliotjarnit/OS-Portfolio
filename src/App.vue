@@ -3,7 +3,7 @@ import { RouterLink, RouterView } from "vue-router";
 </script>
 
 <template>
-  <div class="wrapper" @scroll.passive="updateScroll">
+  <div class="wrapper">
     <nav class="navbar" :style="{ height: scroll > 0 ? '3em' : '4em' }">
       <RouterLink class="router-item" to="/">Home</RouterLink>
     </nav>
@@ -19,8 +19,10 @@ export default {
       scroll: window.pageYOffset,
     };
   },
-  mounted() {
-    console.log(this.scroll);
+  created() {
+    window.addEventListener("scroll", () => {
+      this.scroll = window.pageYOffset;
+    });
   },
 };
 </script>
