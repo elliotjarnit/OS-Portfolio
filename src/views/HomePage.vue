@@ -6,14 +6,9 @@
       <div class="title-text">
         Hi! My name is, <br />
         Elliot:~$
-        <div
-          class="terminal-cursor"
-          :style="{ opacity: cursorShown ? '1' : '0' }"
-        >
+        <div class="terminal-cursor" :style="{ opacity: cursorShown ? '1' : '0' }">
           &nbsp;
         </div>
-        <br /><br />
-        This website is currently a work in progress...
       </div>
     </div>
   </main>
