@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "pinia": "^2.0.14",
-    "sass": "^1.53.0",
+    "sass": "1.54.3",
     "vue": "^3.2.36",
     "vue-animate-onscroll": "^1.0.8",
     "vue-router": "^4.0.15"
