@@ -58,10 +58,7 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-@font-face {
-  font-family: "SFPro";
-  src: url("~/assets/SFProRegular.OTF");
-}
+@import url('https://fonts.cdnfonts.com/css/sf-pro-display');
 
 .page {
   position: absolute;
@@ -70,7 +67,7 @@ export default {
   background-image: url("https://4kwallpapers.com/images/wallpapers/macos-13-macos-ventura-macos-2022-stock-light-5k-retina-1920x1080-8135.jpg");
   background-size: cover;
   background-repeat: no-repeat;
-  font-family: SFPro,sans-serif;
+  font-family: 'SF Pro Display', sans-serif;
   display: flex;
   justify-content: center;
   align-items: center;
