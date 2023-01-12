@@ -52,7 +52,6 @@ export default {
         splash.style.display = "none"
         main.style.display = "flex"
         main.style.opacity = "1"
-
       }, 2500);
     }, 1000);
   }
@@ -134,6 +133,8 @@ export default {
       border-radius: 15px;
       outline: none;
       border: none;
+      height: 15px;
+      width: 139px;
       padding: 0.3em 13px;
       background-color: rgba(255, 255, 255, 0.3);
       box-shadow: 0 25.6px 57.6px rgb(0 0 0 / 14%), 0px 0px 16.4px rgb(0 0 0 / 12%);
