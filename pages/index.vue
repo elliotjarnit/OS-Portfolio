@@ -42,7 +42,7 @@ export default {
           count++
         }
         await new Promise(resolve => setTimeout(resolve, 900));
-        cursor.style.transition = "transform 1.5s linear"
+        cursor.style.transition = "transform 1.5s linear, opacity 2s"
         // Move cursor to the login button
         cursor.style.transform = "translate(73px, 129px)"
         await new Promise(resolve => setTimeout(resolve, 2000));
