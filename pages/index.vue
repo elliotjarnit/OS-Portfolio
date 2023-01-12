@@ -42,7 +42,7 @@ export default {
           count++
         }
         await new Promise(resolve => setTimeout(resolve, 900));
-        cursor.style.transition = "transform 1.5s"
+        cursor.style.transition = "transform 1.5s linear"
         // Move cursor to the login button
         cursor.style.transform = "translate(73px, 129px)"
         await new Promise(resolve => setTimeout(resolve, 2000));
@@ -53,7 +53,7 @@ export default {
         main.style.display = "flex"
         main.style.opacity = "1"
 
-      }, 3200);
+      }, 2500);
     }, 1000);
   }
 }
@@ -95,7 +95,7 @@ export default {
   pointer-events: none;
   object-fit: contain;
   transform: translate(130px, calc(50vh + 30px));
-  transition: transform 3s, opacity 2s;
+  transition: transform 2s linear, opacity 2s;
 }
 
 .splash {
