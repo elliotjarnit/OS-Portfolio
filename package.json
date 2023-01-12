@@ -4,13 +4,13 @@
     "build": "nuxt build",
     "dev": "nuxt dev",
     "generate": "nuxt generate",
-    "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "preview": "nuxt preview"
   },
   "devDependencies": {
     "nuxt": "3.0.0"
   },
   "dependencies": {
+    "@vercel/analytics": "^0.1.7",
     "sass": "^1.57.1"
   }
 }
