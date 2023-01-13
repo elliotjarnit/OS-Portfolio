@@ -2,6 +2,9 @@ import formidable from "formidable";
 import fs from "fs";
 import path from "path";
 
+// @ts-ignore
+const appDir = path.dirname(require.main.filename);
+
 export default defineEventHandler(async (event) => {
   let imageUrl = "";
   let oldPath = "";
@@ -22,7 +25,7 @@ export default defineEventHandler(async (event) => {
       if (files.photo.mimetype.startsWith("image/")) {
         let imageName = String(Date.now() + Math.round(Math.random() * 100000));
         oldPath = files.photo.filepath;
-        newPath = `${path.join("static", "uploads", imageName)}`;
+        newPath = `${path.join(appDir, "uploads", imageName)}`;
         imageUrl = "./static/upload/" + imageName;
         fs.copyFileSync(oldPath, newPath);
         resolve({
