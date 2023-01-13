@@ -4,7 +4,8 @@
       <div class="loginpage">
         <img class="pfp" src="~/assets/pfp.jpeg" alt="profile picture" />
         <p>Elliot Jarnit</p>
-        <input type="password" placeholder='Enter Password' :value="passwordfieldval" class="passwordfield" @keydown.prevent="void(0)" />
+        <spinner v-if="loading" :size="15" />
+        <input v-else type="password" placeholder='Enter Password' :value="passwordfieldval" class="passwordfield" @keydown.prevent="void(0)" />
       </div>
     </div>
     <img src='~/assets/cursor.png' alt="cursor" class="cursor" />
@@ -18,43 +19,49 @@
 export default {
   data() {
     return {
-      passwordfieldval: ""
+      passwordfieldval: "",
+      loading: false
     }
   },
   mounted() {
-    const cursor = document.querySelector('.cursor');
-    const passwordfield = document.querySelector('.passwordfield');
-    const splash = document.querySelector('.splash');
-    const main = document.querySelector('.main');
+    this.runAnimation()
+  },
+  methods: {
+    runAnimation() {
+      const cursor = document.querySelector('.cursor');
+      const passwordfield = document.querySelector('.passwordfield');
+      const splash = document.querySelector('.splash');
+      const main = document.querySelector('.main');
 
-    // Wait 1 second
-    setTimeout(() => {
-      // Move cursor to the password field
-      cursor.style.transform = "translate(-50px, 125px)"
-      setTimeout(async () => {
+      // Wait 1 second
+      setTimeout(() => {
         // Move cursor to the password field
-        passwordfield.focus()
-        await new Promise(resolve => setTimeout(resolve, 950));
-        let count = 0
-        while (count < 15) {
-          await new Promise(r => setTimeout(r, Math.trunc(Math.random() * 350)));
-          this.passwordfieldval += "a"
-          count++
-        }
-        await new Promise(resolve => setTimeout(resolve, 900));
-        cursor.style.transition = "transform 1.5s linear, opacity 2s"
-        // Move cursor to the login button
-        cursor.style.transform = "translate(73px, 129px)"
-        await new Promise(resolve => setTimeout(resolve, 2000));
-        splash.style.opacity = "0"
-        cursor.style.opacity = "0"
-        await new Promise(resolve => setTimeout(resolve, 2000));
-        splash.style.display = "none"
-        main.style.display = "flex"
-        main.style.opacity = "1"
-      }, 2500);
-    }, 1000);
-  }
+        cursor.style.transform = "translate(-50px, 135px)"
+        setTimeout(async () => {
+          // Move cursor to the password field
+          passwordfield.focus()
+          await new Promise(resolve => setTimeout(resolve, 950));
+          let count = 0
+          while (count < 15) {
+            await new Promise(r => setTimeout(r, Math.trunc(Math.random() * 350)));
+            this.passwordfieldval += "a"
+            count++
+          }
+          await new Promise(resolve => setTimeout(resolve, 900));
+          cursor.style.transition = "transform 1.5s linear, opacity 2s"
+          // Move cursor to the login button
+          cursor.style.transform = "translate(73px, 139px)"
+          await new Promise(resolve => setTimeout(resolve, 2000));
+          this.loading = true;
+          await new Promise(resolve => setTimeout(resolve, 3000));
+          cursor.style.display = "none"
+          splash.style.display = "none"
+          main.style.display = "flex"
+          main.style.opacity = "1"
+        }, 2500);
+      }, 1000);
+    }
+  },
 }
 </script>
 <style lang="scss" scoped>
@@ -137,6 +144,7 @@ export default {
       box-shadow: 0 25.6px 57.6px rgb(0 0 0 / 14%), 0px 0px 16.4px rgb(0 0 0 / 12%);
       backdrop-filter: blur(40px);
       -webkit-backdrop-filter: blur(40px);
+      margin-top: 22px;
     }
 
     .passwordfield:not(:placeholder-shown) {
@@ -148,4 +156,5 @@ export default {
     }
   }
 }
+
 </style>
