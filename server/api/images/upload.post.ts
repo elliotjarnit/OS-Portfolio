@@ -3,9 +3,6 @@ import fs from "fs";
 import path from "path";
 
 export default defineEventHandler(async (event) => {
-  let imageUrl = "";
-  let oldPath = "";
-  let newPath = "";
 
   const form = formidable({ multiples: true });
   return await new Promise((resolve, reject) => {
@@ -21,8 +18,9 @@ export default defineEventHandler(async (event) => {
       }
       if (files.photo.mimetype.startsWith("image/")) {
         let imageName = String(Date.now() + Math.round(Math.random() * 100000));
-        oldPath = files.photo.filepath;
-        newPath = `${path.join(process.cwd(), "images", imageName)}`;
+        let oldPath = files.photo.filepath;
+        let imagesDir = path.join(process.cwd(), "./public", "images");
+        let newPath = String(path.join(imagesDir, imageName));
         fs.copyFileSync(oldPath, newPath);
         resolve({
           status: "ok",
