@@ -23,7 +23,7 @@ export default defineEventHandler(async (event) => {
         let imageName = String(Date.now() + Math.round(Math.random() * 100000));
         oldPath = files.photo.filepath;
         newPath = `${path.join("public", "uploads", imageName)}`;
-        imageUrl = "./public/upload/" + imageName;
+        imageUrl = "./static/upload/" + imageName;
         fs.copyFileSync(oldPath, newPath);
         resolve({
           status: "ok",
