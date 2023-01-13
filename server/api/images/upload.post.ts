@@ -2,18 +2,6 @@ import formidable from "formidable";
 import fs from "fs";
 import path from "path";
 
-async function getAppPath() {
-
-  for (let curpath of module.paths) {
-    try {
-      await fs.access(curpath, fs.constants.F_OK);
-      return path.dirname(curpath);
-    } catch (e) {
-      // Just move on to next path
-    }
-  }
-}
-
 export default defineEventHandler(async (event) => {
   let imageUrl = "";
   let oldPath = "";
@@ -34,12 +22,11 @@ export default defineEventHandler(async (event) => {
       if (files.photo.mimetype.startsWith("image/")) {
         let imageName = String(Date.now() + Math.round(Math.random() * 100000));
         oldPath = files.photo.filepath;
-        newPath = `${path.join(appDir, "uploads", imageName)}`;
-        imageUrl = "./static/upload/" + imageName;
+        newPath = `${path.join(process.cwd(), "images", imageName)}`;
         fs.copyFileSync(oldPath, newPath);
         resolve({
           status: "ok",
-          url: imageUrl,
+          url: newPath,
         });
       } else {
         resolve({
