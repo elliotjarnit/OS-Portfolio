@@ -2,8 +2,17 @@ import formidable from "formidable";
 import fs from "fs";
 import path from "path";
 
-// @ts-ignore
-const appDir = path.dirname(require.main.filename);
+async function getAppPath() {
+
+  for (let curpath of module.paths) {
+    try {
+      await fs.access(curpath, fs.constants.F_OK);
+      return path.dirname(curpath);
+    } catch (e) {
+      // Just move on to next path
+    }
+  }
+}
 
 export default defineEventHandler(async (event) => {
   let imageUrl = "";
