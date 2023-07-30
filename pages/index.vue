@@ -5,12 +5,18 @@
         <img class="pfp" src="~/assets/pfp.jpeg" alt="profile picture" />
         <p>Elliot Jarnit</p>
         <spinner v-if="loading" :size="15" />
-        <input v-else type="password" placeholder='Enter Password' :value="passwordfieldval" class="passwordfield" @keydown.prevent="void(0)" />
+        <input v-else placeholder='Enter Password' :value="passwordfieldval" class="passwordfield" @keydown.prevent="void(0)" />
       </div>
     </div>
     <img src='~/assets/cursor.png' alt="cursor" class="cursor" />
     <div class="main" style="display: none; opacity: 0;">
-      <h1>🚧 Site Under Construction 🚧</h1>
+      <div id="desktop-env">
+        <DesktopIcon icon="/projects.png" display="Projects" ref="projects">
+          <Window title="Projects" win-pos-x="250" win-pos-y="300" @close="$refs.projects.closeWindow()">
+            <Projects />
+          </Window>
+        </DesktopIcon>
+      </div>
     </div>
   </div>
 </template>
@@ -24,7 +30,19 @@ export default {
     }
   },
   mounted() {
-    this.runAnimation()
+    // If dev
+    if (process.env.NODE_ENV === "development") {
+      const cursor = document.querySelector('.cursor');
+      const passwordfield = document.querySelector('.passwordfield');
+      const splash = document.querySelector('.splash');
+      const main = document.querySelector('.main');
+      cursor.style.display = "none"
+      splash.style.display = "none"
+      main.style.display = "flex"
+      main.style.opacity = "1"
+    } else {
+      this.runAnimation()
+    }
   },
   methods: {
     runAnimation() {
@@ -44,7 +62,7 @@ export default {
           let count = 0
           while (count < 15) {
             await new Promise(r => setTimeout(r, Math.trunc(Math.random() * 350)));
-            this.passwordfieldval += "a"
+            this.passwordfieldval += "*"
             count++
           }
           await new Promise(resolve => setTimeout(resolve, 900));
@@ -58,7 +76,7 @@ export default {
           splash.style.display = "none"
           main.style.display = "flex"
           main.style.opacity = "1"
-        }, 2500);
+        }, 3000);
       }, 1000);
     }
   },
@@ -97,8 +115,8 @@ export default {
   height: 20px;
   pointer-events: none;
   object-fit: contain;
-  transform: translate(130px, calc(50vh + 30px));
-  transition: transform 2s linear, opacity 2s;
+  transform: translate(-50vw, calc(50vh + 30px));
+  transition: transform 2.5s linear, opacity 2s;
 }
 
 .splash {
