@@ -9,13 +9,22 @@
       </div>
     </div>
     <img src='~/assets/cursor.png' alt="cursor" class="cursor" />
-    <div class="main" style="display: none; opacity: 0;">
+    <div id="main" style="display: none; opacity: 0;" @click="makeAllIconsNotActive">
       <div id="desktop-env">
-        <DesktopIcon icon="/projects.png" display="Projects" ref="projects">
-          <Window title="Projects" win-pos-x="250" win-pos-y="300" @close="$refs.projects.closeWindow()">
-            <Projects />
-          </Window>
-        </DesktopIcon>
+        <div id="icons">
+          <DesktopIcon icon="/folder.webp" display="Projects" ref="projects">
+            <Window title="Projects" :win-size="{width: 600, height: 350}" :win-pos="{x: 100, y: 100}" @close="$refs.projects.closeWindow()">
+              <div class="finder-window">
+                <div class="sidebar">
+
+                </div>
+                <div class="folder-content">
+
+                </div>
+              </div>
+            </Window>
+          </DesktopIcon>
+        </div>
       </div>
     </div>
   </div>
@@ -33,9 +42,8 @@ export default {
     // If dev
     if (process.env.NODE_ENV === "development") {
       const cursor = document.querySelector('.cursor');
-      const passwordfield = document.querySelector('.passwordfield');
       const splash = document.querySelector('.splash');
-      const main = document.querySelector('.main');
+      const main = document.querySelector('#main');
       cursor.style.display = "none"
       splash.style.display = "none"
       main.style.display = "flex"
@@ -49,7 +57,7 @@ export default {
       const cursor = document.querySelector('.cursor');
       const passwordfield = document.querySelector('.passwordfield');
       const splash = document.querySelector('.splash');
-      const main = document.querySelector('.main');
+      const main = document.querySelector('#main');
 
       // Wait 1 second
       setTimeout(() => {
@@ -78,6 +86,15 @@ export default {
           main.style.opacity = "1"
         }, 3000);
       }, 1000);
+    },
+    makeAllIconsNotActive(e) {
+      if (e.target.id !== "main") return;
+
+      const icons = document.querySelector('#icons');
+      for (let i = 0; i < icons.children.length; i++) {
+        icons.children[i].querySelector(".desktop-icon").classList.remove("active")
+        icons.children[i].querySelector(".icon-display").classList.remove("active")
+      }
     }
   },
 }
@@ -98,7 +115,7 @@ export default {
   align-items: center;
 }
 
-.main {
+#main {
   transition: opacity 1s;
   position: absolute;
   width: 100%;

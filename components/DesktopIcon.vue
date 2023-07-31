@@ -1,9 +1,11 @@
 <template>
-  <div class="desktop-icon" @dblclick="openWindow">
-    <p>{{ display }}</p>
-  </div>
-  <div class="window-cont" :class="{hidden: !winOpen}">
-    <slot />
+  <div class="icon-win-cont">
+    <div class="desktop-icon" ref="icon" @dblclick="openWindow" @click="makeActive">
+      <p class="icon-display">{{ display }}</p>
+    </div>
+    <div class="window-cont" :class="{hidden: !winOpen}">
+      <slot />
+    </div>
   </div>
 </template>
 
@@ -32,6 +34,14 @@ export default {
     },
     closeWindow() {
       this.winOpen = false
+    },
+    makeActive() {
+      this.$refs.icon.classList.add('active')
+      this.$refs.icon.firstChild.classList.add('active')
+    },
+    makeNotActive() {
+      this.$refs.icon.classList.remove('active')
+      this.$refs.icon.firstChild.classList.remove('active')
     }
   }
 };
@@ -43,7 +53,6 @@ export default {
   flex-direction: column;
   align-items: center;
   margin: 0 10px;
-  cursor: pointer;
   transition: transform 0.2s;
   user-select: none;
   -webkit-user-drag: none;
@@ -52,8 +61,14 @@ export default {
   p {
     color: white;
     text-shadow: 0 0 0.3em #000000;
-    font-size: 1em;
+    font-size: 0.9em;
     margin: 0 0 0.5em 0;
+    padding: 2px;
+
+    &.active {
+      background: rgb(36, 88, 201);
+      border-radius: 3px;
+    }
   }
 
   &:before {
@@ -63,15 +78,18 @@ export default {
     text-rendering: optimizeLegibility;
     display: block;
     content: "";
-    width: 4rem;
-    height: 4rem;
+    width: 4.5rem;
+    height: 4.5rem;
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
+    margin-bottom: 3px;
   }
 
-  &:hover {
-    filter: drop-shadow(0 0 0.5em #ffffff);
+  &.active:before {
+    backdrop-filter: brightness(0.65);
+    -webkit-backdrop-filter: brightness(0.65);
+    border-radius: 3px;
   }
 }
 

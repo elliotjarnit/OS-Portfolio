@@ -2,14 +2,16 @@
   <div class="window" :style="{top: winY + 'px', left: winX + 'px'}">
     <div class="header">
       <div class="titlebar" @mousedown.prevent="dragWindowStart">
-        <div class="titlebar-btns">
-          <div class="titlebar-btn close" @click="$emit('close')" />
-          <div class="titlebar-btn minimize"></div>
-          <div class="titlebar-btn maximize"></div>
-        </div>
-        <div class="titlebar-title">
-          <p>{{ title }}</p>
-        </div>
+        <slot name="titlebar">
+          <div class="titlebar-btns">
+            <div class="titlebar-btn close" @click="$emit('close')" />
+            <div class="titlebar-btn minimize"></div>
+            <div class="titlebar-btn maximize"></div>
+          </div>
+          <div class="titlebar-title">
+            <p>{{ title }}</p>
+          </div>
+        </slot>
       </div>
     </div>
     <div class="content">
@@ -27,23 +29,29 @@ export default {
       type: String,
       required: true
     },
-    winPosX: {
-      type: Number,
-      default: 0
+    winSize: {
+      type: Object,
+      default: () => {
+        return { width: 500, height: 500 };
+      }
     },
-    winPosY: {
-      type: Number,
-      default: 0
-    },
+    winPos: {
+      type: Object,
+      default: () => {
+        return { x: 0, y: 0 };
+      }
+    }
   },
   data() {
     return {
-      winX: this.winPosX,
-      winY: this.winPosY,
+      winX: this.winPos.x,
+      winY: this.winPos.y,
       curX: 0,
       curY: 0,
       prevX: 0,
-      prevY: 0
+      prevY: 0,
+      winSizeX: this.winSize.width + 'px',
+      winSizeY: this.winSize.height + 'px'
     };
   },
   methods: {
@@ -75,8 +83,8 @@ export default {
 <style scoped>
 .window {
   position: absolute;
-  width: 500px;
-  height: 500px;
+  width: v-bind(winSizeX);
+  height: v-bind(winSizeY);
   background-color: #000000;
   border: 1px solid #000000;
   border-radius: 7px;
@@ -131,6 +139,17 @@ export default {
         }
       }
     }
+  }
+
+  .content {
+    width: 100%;
+    height: calc(100% - 23px);
+    background-color: #000000;
+    border-radius: 0 0 5px 5px;
+    padding: 1em;
+    overflow: auto;
+    color: white;
+    box-sizing: border-box;
   }
 }
 </style>
