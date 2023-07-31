@@ -14,14 +14,16 @@
         <div id="icons">
           <DesktopIcon icon="/folder.webp" display="Projects" ref="projects">
             <Window title="Projects" :win-size="{width: 600, height: 350}" :win-pos="{x: 100, y: 100}" @close="$refs.projects.closeWindow()">
-              <div class="finder-window">
-                <div class="sidebar">
+              <template v-slot:window>
+                <div class="finder-window">
+                  <div class="sidebar blur">
 
-                </div>
-                <div class="folder-content">
+                  </div>
+                  <div class="folder-content">
 
+                  </div>
                 </div>
-              </div>
+              </template>
             </Window>
           </DesktopIcon>
         </div>
@@ -192,4 +194,29 @@ export default {
   }
 }
 
+.finder-window {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+
+  .sidebar {
+    height: 100%;
+    width: 7.5em;
+  }
+
+  .folder-content {
+    width: calc(100% - 7.5em);
+    height: 100%;
+    background-color: rgb(37, 37, 39);
+  }
+}
+
+.blur {
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  background-color: rgba(35, 39, 52, 0.72);
+  overflow-y: auto;
+  box-shadow: 0px 25.6px 57.6px rgb(0 0 0 / 14%), 0px 0px 16.4px rgb(0 0 0 / 12%);
+}
 </style>

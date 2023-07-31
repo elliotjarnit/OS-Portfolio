@@ -3,20 +3,18 @@
     <div class="header">
       <div class="titlebar" @mousedown.prevent="dragWindowStart">
         <slot name="titlebar">
-          <div class="titlebar-btns">
-            <div class="titlebar-btn close" @click="$emit('close')" />
-            <div class="titlebar-btn minimize"></div>
-            <div class="titlebar-btn maximize"></div>
-          </div>
-          <div class="titlebar-title">
-            <p>{{ title }}</p>
-          </div>
+          <TrafflicLightButtons class="tlb" @close="$emit('close')" />
+<!--          <div class="titlebar-title">-->
+<!--            <p>{{ title }}</p>-->
+<!--          </div>-->
         </slot>
       </div>
     </div>
-    <div class="content">
-      <slot />
-    </div>
+    <slot name="window">
+      <div class="content">
+        <slot />
+      </div>
+    </slot>
   </div>
 </template>
 
@@ -85,8 +83,6 @@ export default {
   position: absolute;
   width: v-bind(winSizeX);
   height: v-bind(winSizeY);
-  background-color: #000000;
-  border: 1px solid #000000;
   border-radius: 7px;
   box-shadow: 0 0 0.5em #000000;
   user-select: none;
@@ -95,40 +91,19 @@ export default {
   overflow: hidden;
   z-index: 100;
   .header {
+    position: absolute;
     width: 100%;
-    height: 23px;
-    background-color: #000000;
-    border-bottom: 1px solid #000000;
+    height: 40px;
     border-radius: 5px 5px 0 0;
     padding: 0 2px;
+    z-index: 100;
     .titlebar {
       width: 100%;
       height: 100%;
       display: flex;
       align-items: center;
-      .titlebar-btns {
-        display: flex;
-        align-items: center;
-        .titlebar-btn {
-          width: 10px;
-          height: 10px;
-          border-radius: 50%;
-          margin: 0 5px;
-          cursor: pointer;
-          transition: background-color 0.2s;
-          &:hover {
-            background-color: #333333;
-          }
-          &.close {
-            background-color: #ff5f57;
-          }
-          &.minimize {
-            background-color: #ffbd2e;
-          }
-          &.maximize {
-            background-color: #28c940;
-          }
-        }
+      .tlb {
+        padding: 10px;
       }
       .titlebar-title {
         p {
@@ -143,10 +118,8 @@ export default {
 
   .content {
     width: 100%;
-    height: calc(100% - 23px);
+    height: calc(100% - 40px);
     background-color: #000000;
-    border-radius: 0 0 5px 5px;
-    padding: 1em;
     overflow: auto;
     color: white;
     box-sizing: border-box;
