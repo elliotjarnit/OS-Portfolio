@@ -17,7 +17,27 @@
               <template v-slot:window>
                 <div class="finder-window">
                   <div class="sidebar blur">
-
+                    <div class="sidebar-section">
+                      <span class="sidebar-section-title">Favorites</span>
+                      <div class="sidebar-section-content">
+                        <div class="sidebar-item">
+                          <img src="~/assets/clock.svg" alt="folder" />
+                          <span>Recents</span>
+                        </div>
+                        <div class="sidebar-item">
+                          <img src="~/assets/clock.svg" alt="folder" />
+                          <span>Applications</span>
+                        </div>
+                        <div class="sidebar-item">
+                          <img src="~/assets/download.svg" alt="folder" />
+                          <span>Downloads</span>
+                        </div>
+                        <div class="sidebar-item">
+                          <img src="~/assets/doc.svg" alt="folder" />
+                          <span>Documents</span>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                   <div class="folder-content">
 
@@ -203,6 +223,43 @@ export default {
   .sidebar {
     height: 100%;
     width: 7.5em;
+    padding-top: 3em;
+
+    .sidebar-section {
+      width: 100%;
+      padding-left: 0.5em;
+      .sidebar-section-title {
+        color: rgb(132, 134, 144);
+        font-size: 0.8em;
+        font-weight: 500;
+      }
+
+      .sidebar-section-content {
+        color: white;
+        display: flex;
+        flex-direction: column;
+        gap: 0.3em;
+        margin-left: 0.3em;
+        margin-top: 0.2em;
+        .sidebar-item {
+          img {
+            width: auto;
+            height: 17px;
+            padding-right: 0.4em;
+            color: rgb(37, 143, 255);
+            position: relative;
+            top: 3px;
+          }
+
+          span {
+            font-size: 0.9em;
+            position: absolute;
+            left: 36px;
+            padding-top: 3px;
+          }
+        }
+      }
+    }
   }
 
   .folder-content {
