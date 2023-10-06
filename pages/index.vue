@@ -21,19 +21,56 @@
                       <span class="sidebar-section-title">Favorites</span>
                       <div class="sidebar-section-content">
                         <div class="sidebar-item">
-                          <img src="~/assets/clock.svg" alt="folder" />
+                          <div class="icon">
+                            <object data="/svgs/airdrop.svg" alt="folder" />
+                          </div>
+                          <span>AirDrop</span>
+                        </div>
+                        <div class="sidebar-item">
+                          <div class="icon">
+                            <object data="/svgs/clock.svg" alt="folder" />
+                          </div>
                           <span>Recents</span>
                         </div>
                         <div class="sidebar-item">
-                          <img src="~/assets/clock.svg" alt="folder" />
+                          <div class="icon">
+                            <object data="/svgs/applications.svg" alt="folder" />
+                          </div>
                           <span>Applications</span>
                         </div>
                         <div class="sidebar-item">
-                          <img src="~/assets/download.svg" alt="folder" />
+                          <div class="icon">
+                            <object data="/svgs/download.svg" alt="folder" />
+                          </div>
                           <span>Downloads</span>
                         </div>
+                      </div>
+                    </div>
+                    <div class="sidebar-section">
+                      <span class="sidebar-section-title">iCloud</span>
+                      <div class="sidebar-section-content">
                         <div class="sidebar-item">
-                          <img src="~/assets/doc.svg" alt="folder" />
+                          <div class="icon">
+                            <object data="/svgs/shared.svg" alt="folder" />
+                          </div>
+                          <span>Shared</span>
+                        </div>
+                        <div class="sidebar-item">
+                          <div class="icon">
+                            <object data="/svgs/icloud.svg" alt="folder" />
+                          </div>
+                          <span>iCloud Drive</span>
+                        </div>
+                        <div class="sidebar-item">
+                          <div class="icon">
+                            <object data="/svgs/desktop.svg" alt="folder" />
+                          </div>
+                          <span>Desktop</span>
+                        </div>
+                        <div class="sidebar-item">
+                          <div class="icon">
+                            <object data="/svgs/doc.svg" alt="folder" />
+                          </div>
                           <span>Documents</span>
                         </div>
                       </div>
@@ -223,15 +260,21 @@ export default {
   .sidebar {
     height: 100%;
     width: 7.5em;
-    padding-top: 3em;
+    padding-top: 2.5em;
 
     .sidebar-section {
       width: 100%;
       padding-left: 0.5em;
+
+      &:not(:first-child) {
+        padding-top: 1.1em;
+      }
+
       .sidebar-section-title {
         color: rgb(132, 134, 144);
         font-size: 0.8em;
         font-weight: 500;
+        padding-left: 0.3em;
       }
 
       .sidebar-section-content {
@@ -239,16 +282,21 @@ export default {
         display: flex;
         flex-direction: column;
         gap: 0.3em;
-        margin-left: 0.3em;
+        margin-left: 0.1em;
         margin-top: 0.2em;
         .sidebar-item {
-          img {
-            width: auto;
-            height: 17px;
-            padding-right: 0.4em;
-            color: rgb(37, 143, 255);
-            position: relative;
-            top: 3px;
+          padding: 1px 1px;
+          .icon {
+            display: inline-flex;
+            justify-content: center;
+            width: 20px;
+            object {
+              width: auto;
+              height: 13px;
+              color: rgb(37, 143, 255) !important;
+              position: relative;
+              top: 3px;
+            }
           }
 
           span {
