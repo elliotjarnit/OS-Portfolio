@@ -83,7 +83,7 @@ export default {
 
 <style scoped>
 .hidden {
-  display: none;
+  opacity: 0;
 }
 
 .window {
