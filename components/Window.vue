@@ -84,8 +84,8 @@ export default {
 <style scoped>
 .hidden {
   opacity: 0;
-  top: -1000px;
-  left: -1000px;
+  top: -1000px !important;
+  left: -1000px !important;
 }
 
 .window {
