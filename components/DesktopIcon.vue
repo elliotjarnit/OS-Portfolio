@@ -3,7 +3,7 @@
     <div class="desktop-icon" ref="icon" @dblclick="openWindow" @click="makeActive">
       <p class="icon-display">{{ display }}</p>
     </div>
-    <div class="window-cont" :class="{hidden: !winOpen}">
+    <div class="window hidden">
       <slot />
     </div>
   </div>
@@ -12,6 +12,9 @@
 <script>
 export default {
   name: "DesktopIcon",
+  emits: [
+    'madeActive',
+  ],
   props: {
     icon: {
       type: String,
@@ -20,22 +23,52 @@ export default {
     display: {
       type: String,
       required: true
+    },
+    position: {
+      type: Object,
+      required: true,
+      default: () => {
+        return {
+          x: 0,
+          y: 0
+        }
+      }
     }
   },
   data() {
     return {
       iconURL: `url(${this.icon})`,
-      winOpen: false
+      positionX: '0px',
+      positionY: '0px',
+      id: null
+    }
+  },
+  mounted() {
+    this.positionX = `${this.position.x}px`
+    this.positionY = `${this.position.y}px`
+
+    // Add window to window container
+    const winCont = document.querySelector('#window-cont')
+    let children = this.$el.querySelector('.window').children
+    for (let i = 0; i < children.length; i++) {
+      if (children[i].id) {
+        this.id = children[i].id
+      }
+
+      winCont.appendChild(children[i])
     }
   },
   methods: {
     openWindow() {
-      this.winOpen = true
+      let win = document.querySelector('#' + this.id)
+      win.classList.remove('hidden')
     },
     closeWindow() {
-      this.winOpen = false
+      let win = document.querySelector('#' + this.id)
+      win.classList.add('hidden')
     },
     makeActive() {
+      this.$emit('madeActive')
       this.$refs.icon.classList.add('active')
       this.$refs.icon.firstChild.classList.add('active')
     },
@@ -64,6 +97,8 @@ export default {
     font-size: 0.9em;
     margin: 0 0 0.5em 0;
     padding: 2px;
+    max-width: 120px;
+    text-align: center;
 
     &.active {
       background: rgb(36, 88, 201);
@@ -80,6 +115,7 @@ export default {
     content: "";
     width: 4.5rem;
     height: 4.5rem;
+    object-fit: contain;
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
@@ -93,15 +129,14 @@ export default {
   }
 }
 
-.window-cont {
+.icon-win-cont {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  max-width: 120px;
+  max-height: 7.5rem;
+  transform: translate(v-bind(positionX), v-bind(positionY));
 }
 
-.hidden {
+.window {
   display: none;
 }
 </style>

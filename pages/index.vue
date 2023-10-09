@@ -1,5 +1,6 @@
 <template>
   <div class="page">
+    <div id="window-cont" ref="window-cont"></div>
     <div class="splash">
       <div class="loginpage">
         <img class="pfp" src="~/assets/pfp.jpeg" alt="profile picture" />
@@ -13,75 +14,31 @@
       <div id="desktop-env">
         <div id="icons">
           <DesktopIcon icon="/folder.webp" display="Projects" ref="projects">
-            <Window title="Projects" :win-size="{width: 600, height: 350}" :win-pos="{x: 100, y: 100}" @close="$refs.projects.closeWindow()">
-              <template v-slot:window>
-                <div class="finder-window">
-                  <div class="sidebar blur">
-                    <div class="sidebar-section">
-                      <span class="sidebar-section-title">Favorites</span>
-                      <div class="sidebar-section-content">
-                        <div class="sidebar-item">
-                          <div class="icon">
-                            <object data="/svgs/airdrop.svg" alt="folder" />
-                          </div>
-                          <span>AirDrop</span>
-                        </div>
-                        <div class="sidebar-item">
-                          <div class="icon">
-                            <object data="/svgs/clock.svg" alt="folder" />
-                          </div>
-                          <span>Recents</span>
-                        </div>
-                        <div class="sidebar-item">
-                          <div class="icon">
-                            <object data="/svgs/applications.svg" alt="folder" />
-                          </div>
-                          <span>Applications</span>
-                        </div>
-                        <div class="sidebar-item">
-                          <div class="icon">
-                            <object data="/svgs/download.svg" alt="folder" />
-                          </div>
-                          <span>Downloads</span>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="sidebar-section">
-                      <span class="sidebar-section-title">iCloud</span>
-                      <div class="sidebar-section-content">
-                        <div class="sidebar-item">
-                          <div class="icon">
-                            <object data="/svgs/shared.svg" alt="folder" />
-                          </div>
-                          <span>Shared</span>
-                        </div>
-                        <div class="sidebar-item">
-                          <div class="icon">
-                            <object data="/svgs/icloud.svg" alt="folder" />
-                          </div>
-                          <span>iCloud Drive</span>
-                        </div>
-                        <div class="sidebar-item">
-                          <div class="icon">
-                            <object data="/svgs/desktop.svg" alt="folder" />
-                          </div>
-                          <span>Desktop</span>
-                        </div>
-                        <div class="sidebar-item">
-                          <div class="icon">
-                            <object data="/svgs/doc.svg" alt="folder" />
-                          </div>
-                          <span>Documents</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="folder-content">
-
-                  </div>
-                </div>
-              </template>
-            </Window>
+            <FinderWindow>
+              <div id="folder-content" @click="makeAllIconsNotActive($event, 'folder-content')">
+                <DesktopIcon
+                  icon="/cider.png"
+                  display="Cider"
+                  ref="project-cider"
+                  :position="{x: 14, y: 13}"
+                  @madeActive="makeAllIconsNotActive($event, 'folder-content', true)">
+                </DesktopIcon>
+                <DesktopIcon
+                  icon="/poster.png"
+                  display="Album Poster Generator"
+                  ref="project-postergen"
+                  :position="{x: 356, y: 78}"
+                  @madeActive="makeAllIconsNotActive($event, 'folder-content', true)">
+                </DesktopIcon>
+                <DesktopIcon
+                  icon="/elliotengine.png"
+                  display="Elliot Engine"
+                  ref="project-elliotengine"
+                  :position="{x: 123, y: 194}"
+                  @madeActive="makeAllIconsNotActive($event, 'folder-content', true)">
+                </DesktopIcon>
+              </div>
+            </FinderWindow>
           </DesktopIcon>
         </div>
       </div>
@@ -90,7 +47,10 @@
 </template>
 
 <script>
+import FinderWindow from "~/components/FinderWindow.vue";
+
 export default {
+  components: { FinderWindow },
   data() {
     return {
       passwordfieldval: "",
@@ -146,10 +106,13 @@ export default {
         }, 3000);
       }, 1000);
     },
-    makeAllIconsNotActive(e) {
-      if (e.target.id !== "main") return;
+    makeAllIconsNotActive(e, container = 'icons', ignoreTarget = false) {
+      if (!ignoreTarget) {
+        if (e.target !== e.currentTarget) return;
+      }
 
-      const icons = document.querySelector('#icons');
+      const icons = document.querySelector(`#${container}`)
+      console.log("Removing active class from: ", container)
       for (let i = 0; i < icons.children.length; i++) {
         icons.children[i].querySelector(".desktop-icon").classList.remove("active")
         icons.children[i].querySelector(".icon-display").classList.remove("active")
@@ -160,6 +123,14 @@ export default {
 </script>
 <style lang="scss" scoped>
 @import url('https://fonts.cdnfonts.com/css/sf-pro-display');
+
+#window-cont {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+}
 
 .page {
   position: absolute;
@@ -249,79 +220,5 @@ export default {
       vertical-align: middle;
     }
   }
-}
-
-.finder-window {
-  display: flex;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-
-  .sidebar {
-    height: 100%;
-    width: 7.5em;
-    padding-top: 2.5em;
-
-    .sidebar-section {
-      width: 100%;
-      padding-left: 0.5em;
-
-      &:not(:first-child) {
-        padding-top: 1.1em;
-      }
-
-      .sidebar-section-title {
-        color: rgb(132, 134, 144);
-        font-size: 0.8em;
-        font-weight: 500;
-        padding-left: 0.3em;
-      }
-
-      .sidebar-section-content {
-        color: white;
-        display: flex;
-        flex-direction: column;
-        gap: 0.3em;
-        margin-left: 0.1em;
-        margin-top: 0.2em;
-        .sidebar-item {
-          padding: 1px 1px;
-          .icon {
-            display: inline-flex;
-            justify-content: center;
-            width: 20px;
-            object {
-              width: auto;
-              height: 13px;
-              color: rgb(37, 143, 255) !important;
-              position: relative;
-              top: 3px;
-            }
-          }
-
-          span {
-            font-size: 0.9em;
-            position: absolute;
-            left: 36px;
-            padding-top: 3px;
-          }
-        }
-      }
-    }
-  }
-
-  .folder-content {
-    width: calc(100% - 7.5em);
-    height: 100%;
-    background-color: rgb(37, 37, 39);
-  }
-}
-
-.blur {
-  -webkit-backdrop-filter: blur(10px);
-  backdrop-filter: blur(10px);
-  background-color: rgba(35, 39, 52, 0.72);
-  overflow-y: auto;
-  box-shadow: 0px 25.6px 57.6px rgb(0 0 0 / 14%), 0px 0px 16.4px rgb(0 0 0 / 12%);
 }
 </style>

@@ -1,9 +1,9 @@
 <template>
-  <div class="window" :style="{top: winY + 'px', left: winX + 'px'}">
+  <div class="window hidden" :id="'win-' + id" :style="{top: winY + 'px', left: winX + 'px'}">
     <div class="header">
       <div class="titlebar" @mousedown.prevent="dragWindowStart">
         <slot name="titlebar">
-          <TrafflicLightButtons class="tlb" @close="$emit('close')" />
+          <TrafflicLightButtons class="tlb" @close="closeSelf" />
 <!--          <div class="titlebar-title">-->
 <!--            <p>{{ title }}</p>-->
 <!--          </div>-->
@@ -21,7 +21,6 @@
 <script>
 export default {
   name: "Window",
-  emits: ["close"],
   props: {
     title: {
       type: String,
@@ -49,7 +48,8 @@ export default {
       prevX: 0,
       prevY: 0,
       winSizeX: this.winSize.width + 'px',
-      winSizeY: this.winSize.height + 'px'
+      winSizeY: this.winSize.height + 'px',
+      id: Math.random().toString(36).substr(2, 9)
     };
   },
   methods: {
@@ -73,12 +73,19 @@ export default {
       this.prevY = e.clientY;
       this.winX -= this.curX;
       this.winY -= this.curY;
+    },
+    closeSelf() {
+      this.$el.classList.add('hidden')
     }
   }
 };
 </script>
 
 <style scoped>
+.hidden {
+  display: none;
+}
+
 .window {
   position: absolute;
   width: v-bind(winSizeX);
