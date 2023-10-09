@@ -10,7 +10,7 @@
       </div>
     </div>
     <img src='~/assets/cursor.png' alt="cursor" class="cursor" />
-    <div id="main" style="display: none; opacity: 0;" @click="makeAllIconsNotActive">
+    <div id="main" style="opacity: 0;" @click="makeAllIconsNotActive">
       <div id="desktop-env">
         <div id="icons">
           <DesktopIcon icon="/folder.webp" display="Projects" ref="projects" rel="preload">
