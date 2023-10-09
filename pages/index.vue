@@ -13,7 +13,7 @@
     <div id="main" style="display: none; opacity: 0;" @click="makeAllIconsNotActive">
       <div id="desktop-env">
         <div id="icons">
-          <DesktopIcon icon="/folder.webp" display="Projects" ref="projects">
+          <DesktopIcon icon="/folder.webp" display="Projects" ref="projects" rel="preload">
             <FinderWindow>
               <div id="folder-content" @click="makeAllIconsNotActive($event, 'folder-content')">
                 <DesktopIcon
@@ -21,12 +21,14 @@
                   display="Cider"
                   ref="project-cider"
                   :position="{x: 14, y: 13}"
+                  rel="preload"
                   @madeActive="makeAllIconsNotActive($event, 'folder-content', true)">
                 </DesktopIcon>
                 <DesktopIcon
                   icon="/poster.png"
                   display="Album Poster Generator"
                   ref="project-postergen"
+                  rel="preload"
                   :position="{x: 356, y: 78}"
                   @madeActive="makeAllIconsNotActive($event, 'folder-content', true)">
                 </DesktopIcon>
@@ -34,6 +36,7 @@
                   icon="/elliotengine.png"
                   display="Elliot Engine"
                   ref="project-elliotengine"
+                  rel="preload"
                   :position="{x: 123, y: 194}"
                   @madeActive="makeAllIconsNotActive($event, 'folder-content', true)">
                 </DesktopIcon>
