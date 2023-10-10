@@ -176,11 +176,6 @@ export default defineComponent({
     width: calc(100% - 7.5em);
     height: 100%;
     background-color: rgb(37, 37, 39);
-    #folder-content {
-      width: 100%;
-      height: 100%;
-      box-sizing: border-box;
-    }
 
     .topbar {
       display: flex;

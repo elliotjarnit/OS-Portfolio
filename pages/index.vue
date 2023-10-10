@@ -115,7 +115,6 @@ export default {
       }
 
       const icons = document.querySelector(`#${container}`)
-      console.log("Removing active class from: ", container)
       for (let i = 0; i < icons.children.length; i++) {
         icons.children[i].querySelector(".desktop-icon").classList.remove("active")
         icons.children[i].querySelector(".icon-display").classList.remove("active")
@@ -223,5 +222,11 @@ export default {
       vertical-align: middle;
     }
   }
+}
+
+#folder-content {
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
 }
 </style>
