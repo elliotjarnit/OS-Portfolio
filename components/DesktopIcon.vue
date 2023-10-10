@@ -40,7 +40,8 @@ export default {
       iconURL: `url(${this.icon})`,
       positionX: '0px',
       positionY: '0px',
-      id: null
+      id: null,
+      windowOrder: useState('windowOrder', () => []),
     }
   },
   mounted() {
@@ -62,10 +63,14 @@ export default {
     openWindow() {
       let win = document.querySelector('#' + this.id)
       win.classList.remove('hidden')
+
+      this.windowOrder.push(this.id)
     },
     closeWindow() {
       let win = document.querySelector('#' + this.id)
       win.classList.add('hidden')
+
+      this.windowOrder.splice(this.windowOrder.indexOf(this.id), 1)
     },
     makeActive() {
       this.$emit('madeActive')

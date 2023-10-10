@@ -1,5 +1,5 @@
 <template>
-  <div class="window hidden" :id="'win-' + id" :style="{top: winY + 'px', left: winX + 'px'}">
+  <div class="window hidden" :id="'win-' + id" :style="{top: winY + 'px', left: winX + 'px'}" @mousedown="focusWindow">
     <div class="header">
       <div class="titlebar" @mousedown.prevent="dragWindowStart">
         <slot name="titlebar">
@@ -41,6 +41,7 @@ export default {
   },
   data() {
     return {
+      windowOrder: useState('windowOrder', () => []),
       winX: this.winPos.x,
       winY: this.winPos.y,
       curX: 0,
@@ -84,6 +85,7 @@ export default {
     },
     closeSelf() {
       this.$el.classList.add('hidden')
+      this.windowOrder = this.windowOrder.filter(e => e !== this.$el.id)
     },
     maximizeSelf() {
       if (this.winSizeX === '100%' && this.winSizeY === '100%') {
@@ -103,6 +105,12 @@ export default {
         this.winY = 0
         this.draggable = false
       }
+    },
+    focusWindow() {
+      if (this.$el.classList.contains('hidden')) return;
+      // Move id in windowOrder to the end
+      this.windowOrder = this.windowOrder.filter(e => e !== this.$el.id)
+      this.windowOrder.push(this.$el.id)
     }
   }
 };
@@ -125,7 +133,6 @@ export default {
   -webkit-user-drag: none;
   -webkit-app-region: no-drag;
   overflow: hidden;
-  z-index: 100;
   .header {
     position: absolute;
     width: 100%;

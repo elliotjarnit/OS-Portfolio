@@ -39,6 +39,7 @@
                   rel="preload"
                   :position="{x: 123, y: 194}"
                   @madeActive="makeAllIconsNotActive($event, 'folder-content', true)">
+                  <TextEditWindow></TextEditWindow>
                 </DesktopIcon>
               </div>
             </FinderWindow>
@@ -57,7 +58,8 @@ export default {
   data() {
     return {
       passwordfieldval: "",
-      loading: false
+      loading: false,
+      windowOrder: useState('windowOrder', () => [])
     }
   },
   mounted() {
@@ -73,6 +75,14 @@ export default {
     } else {
       this.runAnimation()
     }
+
+    // Update window z-index on windowOrder change
+    watchEffect(() => {
+      for (let i = 0; i < this.windowOrder.length; i++) {
+        const win = document.querySelector(`#${this.windowOrder[i]}`)
+        win.style.zIndex = i + 10
+      }
+    })
   },
   methods: {
     runAnimation() {
