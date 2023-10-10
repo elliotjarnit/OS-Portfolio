@@ -3,7 +3,7 @@
     <div class="header">
       <div class="titlebar" @mousedown.prevent="dragWindowStart">
         <slot name="titlebar">
-          <TrafflicLightButtons class="tlb" @close="closeSelf" />
+          <TrafflicLightButtons class="tlb" @close="closeSelf" @maximize="maximizeSelf" @minimize="closeSelf" />
 <!--          <div class="titlebar-title">-->
 <!--            <p>{{ title }}</p>-->
 <!--          </div>-->
@@ -49,12 +49,20 @@ export default {
       prevY: 0,
       winSizeX: this.winSize.width + 'px',
       winSizeY: this.winSize.height + 'px',
+      beforeMax: {
+        x: 0,
+        y: 0,
+        width: 0,
+        height: 0
+      },
+      draggable: true,
       id: Math.random().toString(36).substr(2, 9)
     };
   },
   methods: {
     // Run on mousedown
     dragWindowStart(e) {
+      if (!this.draggable) return;
       this.prevX = e.clientX;
       this.prevY = e.clientY;
 
@@ -76,6 +84,25 @@ export default {
     },
     closeSelf() {
       this.$el.classList.add('hidden')
+    },
+    maximizeSelf() {
+      if (this.winSizeX === '100%' && this.winSizeY === '100%') {
+        this.winSizeX = this.beforeMax.width + 'px'
+        this.winSizeY = this.beforeMax.height + 'px'
+        this.winX = this.beforeMax.x
+        this.winY = this.beforeMax.y
+        this.draggable = true
+      } else {
+        this.beforeMax.x = this.winX
+        this.beforeMax.y = this.winY
+        this.beforeMax.width = this.winSize.width
+        this.beforeMax.height = this.winSize.height
+        this.winSizeX = '100%'
+        this.winSizeY = '100%'
+        this.winX = 0
+        this.winY = 0
+        this.draggable = false
+      }
     }
   }
 };

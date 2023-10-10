@@ -136,7 +136,7 @@ export default defineComponent({
         color: rgb(132, 134, 144);
         font-size: 0.8em;
         font-weight: 500;
-        padding-left: 0.3em;
+        padding-left: 0.2em;
       }
 
       .sidebar-section-content {
