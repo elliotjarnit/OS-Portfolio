@@ -1,7 +1,4 @@
 <template>
-  <div class="banner">
-    <span>This website is still heavily under construction and is far from finished</span>
-  </div>
   <div>
     <NuxtPage />
   </div>

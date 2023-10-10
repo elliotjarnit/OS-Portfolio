@@ -138,7 +138,7 @@ export default {
   position: absolute;
   width: 100%;
   height: 100%;
-  background-image: url("https://4kwallpapers.com/images/wallpapers/macos-13-macos-ventura-macos-2022-stock-light-5k-retina-1920x1080-8135.jpg");
+  background-image: url("~/assets/wallpaper.jpg");
   background-size: cover;
   background-repeat: no-repeat;
   font-family: 'SF Pro Display', sans-serif;
