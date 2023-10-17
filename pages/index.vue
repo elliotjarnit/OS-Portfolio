@@ -39,7 +39,7 @@
                   rel="preload"
                   :position="{x: 123, y: 194}"
                   @madeActive="makeAllIconsNotActive($event, 'folder-content', true)">
-                  <TextEditWindow></TextEditWindow>
+                  <TextEditWindow file="Elliot Engine"></TextEditWindow>
                 </DesktopIcon>
               </div>
             </FinderWindow>

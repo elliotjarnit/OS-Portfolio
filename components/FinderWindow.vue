@@ -1,5 +1,9 @@
 <template>
-  <Window title="Projects" :win-size="{width: 750, height: 400}" :win-pos="{x: 100, y: 100}">
+  <Window title="Projects"
+          :win-size="{width: 750, height: 400}"
+          :win-pos="{x: 100, y: 100}"
+          tl-margin="15px"
+  >
     <template v-slot:window>
       <div class="finder-window">
         <div class="sidebar blur">

@@ -24,6 +24,12 @@ export default {
     margin: 0 5px;
     cursor: pointer;
     transition: background-color 0.2s;
+    &:nth-child(1) {
+      margin-left: 0;
+    }
+    &:last-child {
+      margin-right: 0;
+    }
     &:hover {
       background-color: #333333;
     }

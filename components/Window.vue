@@ -37,6 +37,10 @@ export default {
       default: () => {
         return { x: 0, y: 0 };
       }
+    },
+    tlMargin: {
+      type: String,
+      default: "10px"
     }
   },
   data() {
@@ -136,9 +140,7 @@ export default {
   .header {
     position: absolute;
     width: 100%;
-    height: 40px;
     border-radius: 5px 5px 0 0;
-    padding: 0 2px;
     z-index: 100;
     .titlebar {
       width: 100%;
@@ -146,7 +148,7 @@ export default {
       display: flex;
       align-items: center;
       .tlb {
-        padding: 10px;
+        padding: v-bind(tlMargin);
       }
       .titlebar-title {
         p {
