@@ -24,14 +24,27 @@
               <option>Regular</option>
               <option>JJJJJJJJJJJJJ</option>
             </select>
-            <select disabled>
+            <select style="color: #fff" v-model="fontSize">
+              <option>9</option>
+              <option>10</option>
+              <option>11</option>
               <option>12</option>
+              <option>13</option>
               <option>14</option>
+              <option>18</option>
+              <option>24</option>
+              <option>36</option>
+              <option>48</option>
+              <option>64</option>
+              <option>72</option>
+              <option>96</option>
+              <option>144</option>
+              <option>288</option>
             </select>
           </div>
         </div>
         <div class="editor">
-
+          <textarea v-model="text"></textarea>
         </div>
       </div>
     </template>
@@ -47,14 +60,32 @@ export default defineComponent({
     file: {
       type: String,
       required: true
+    },
+    startingText: {
+      type: String,
+      default: ""
     }
-  }
+  },
+  data() {
+    return {
+      text: this.startingText,
+      textColor: "#fff",
+      fontSize: 12,
+    };
+  },
+  computed: {
+    cssFontSize() {
+      // -1 because the font size is 1px bigger than the actual font size
+      return (this.fontSize - 1) + "px";
+    }
+  },
 });
 </script>
 
 <style scoped lang="scss">
 .text-edit-window {
   display: flex;
+  flex-direction: column;
   width: 100%;
   height: 100%;
   overflow: hidden;
@@ -67,6 +98,8 @@ export default defineComponent({
     display: flex;
     justify-content: space-between;
     flex-direction: column;
+    top: 0;
+    position: absolute;
     .info {
       display: flex;
       align-items: center;
@@ -94,6 +127,7 @@ export default defineComponent({
 
       select {
         background-color: rgb(57, 56, 55);
+        border-color: rgba(118, 118, 118, 0.3);
         color: rgb(183, 183, 182);
         border-radius: 3px;
         padding: 0.1rem;
@@ -101,6 +135,26 @@ export default defineComponent({
         opacity: 1;
         margin-right: 0.5rem;
       }
+    }
+  }
+
+  .editor {
+    position: absolute;
+    top: 3.5rem;
+    width: 100%;
+    height: calc(100% - 3.5rem);
+    textarea {
+      background: transparent;
+      border: none;
+      outline: none;
+      resize: none;
+      width: 100%;
+      height: 100%;
+      box-sizing: border-box;
+      color: v-bind(textColor);
+      caret-color: rgb(52, 120, 246);
+      padding-left: 0.2rem;
+      font-size: v-bind(cssFontSize);
     }
   }
 }
