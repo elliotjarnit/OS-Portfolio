@@ -158,6 +158,7 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
+  caret-color: rgb(52, 120, 246);
 }
 
 #main {

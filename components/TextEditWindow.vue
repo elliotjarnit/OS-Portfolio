@@ -152,7 +152,6 @@ export default defineComponent({
       height: 100%;
       box-sizing: border-box;
       color: v-bind(textColor);
-      caret-color: rgb(52, 120, 246);
       padding-left: 0.2rem;
       font-size: v-bind(cssFontSize);
     }
