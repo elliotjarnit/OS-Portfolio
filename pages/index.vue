@@ -1,6 +1,9 @@
 <template>
   <div class="page">
     <div id="window-cont" ref="window-cont"></div>
+    <div id="temp-construction">
+      <UnderConstruction id="construction-notice" />
+    </div>
     <div class="splash">
       <div class="loginpage">
         <img class="pfp" src="~/assets/pfp.jpeg" alt="profile picture" />
@@ -55,9 +58,10 @@
 
 <script>
 import FinderWindow from "~/components/FinderWindow.vue";
+import UnderConstruction from "~/components/UnderConstruction.vue";
 
 export default {
-  components: { FinderWindow },
+  components: { UnderConstruction, FinderWindow },
   data() {
     return {
       passwordfieldval: "",
@@ -76,7 +80,7 @@ export default {
       main.style.display = "flex"
       main.style.opacity = "1"
     } else {
-      this.runAnimation()
+      // this.runAnimation()
     }
 
     // Update window z-index on windowOrder change
@@ -242,5 +246,18 @@ export default {
   width: 100%;
   height: 100%;
   box-sizing: border-box;
+}
+
+#temp-construction {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  #construction-notice {
+    transform: rotate(-10deg);
+  }
 }
 </style>
