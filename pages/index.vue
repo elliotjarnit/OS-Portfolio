@@ -79,6 +79,10 @@ export default {
       splash.style.display = "none"
       main.style.display = "flex"
       main.style.opacity = "1"
+
+      // Hide construction notice
+      const construction = document.querySelector('#temp-construction')
+      construction.style.display = "none"
     } else {
       // this.runAnimation()
     }
