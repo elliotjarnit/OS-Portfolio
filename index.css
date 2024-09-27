@@ -1,10 +1,11 @@
 :root {
     --text: #e5edfd;
-    --background: #00030b;
+    --background: #1a1a1a;
     --primary: #749cfd;
     --secondary: #532084;
     --accent: #3866e3;
     --rot: 0deg;
+    --icon: url(/icons/cloudflare.svg);
 }
 
 body {
@@ -25,15 +26,26 @@ body {
 }
 
 #main-img {
-    width: 15rem;
-    height: 15rem;
+    width: 11rem;
+    height: 11rem;
 
     border-radius: 50%;
     position: absolute;
     top: 50%;
     left: 50%;
-
+    z-index: 10;
     transform: translate(-50%, -50%);
+    cursor: pointer;
+
+    transition: transform 0.3s;
+}
+
+#main-img:hover {
+    transform: translate(-50%, -50%) scale(1.1);
+}
+
+#main-img:active {
+    transform: translate(-50%, -50%) scale(1.2);
 }
 
 .main-graphic {
@@ -41,11 +53,13 @@ body {
 }
 
 #circle-1 {
-    --circle-size: 25rem;
+    --circle-size: 20rem;
+    z-index: 2;
 }
 
 #circle-2 {
-    --circle-size: 35rem;
+    --circle-size: 30rem;
+    z-index: 1;
 }
 
 .circle {
@@ -74,7 +88,7 @@ body {
     left: 50%;
     margin: calc(-1.5rem / 2);
     transition: transform 0.15s;
-    color: var(--text);
+    z-index: 10;
 
     --updatedRot: calc(var(--rot) + var(--offset));
     --rotPos: calc(var(--updatedRot) * 1deg);
@@ -86,7 +100,25 @@ body {
         rotate(var(--rotNeg));
 }
 
+.dev-icon::before {
+    content: '';
+    position: absolute;
+    width: 80%;
+    height: 80%;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.5);
+    filter: blur(1rem);
+    z-index: -1;
+}
+
 .dev-icon img {
-    -webkit-filter: drop-shadow(0 0 1rem rgba(255, 255, 255, 1));
-    filter: drop-shadow(0 0 1rem rgba(255, 255, 255, 1));
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 10;
+    transition: transform 0.15s;
+}
+
+.dev-icon img:hover {
+    transform: scale(1.3) rotate(0deg);
 }
