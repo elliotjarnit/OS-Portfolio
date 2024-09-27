@@ -17,15 +17,15 @@ function populateIcons() {
   const circle1 = document.getElementById("circle-1")
   const circle2 = document.getElementById("circle-2")
 
-  const icons = pickIcons(24)
+  const icons = pickIcons(32)
 
   circle1.innerHTML = ""
   circle2.innerHTML = ""
 
   icons.forEach((icon, index) => {
-    const circle = index < 8 ? circle1 : circle2
-    const itemCount = index < 8 ? 8 : 16
-    circle.innerHTML += `<img class="dev-icon" src="icons/${icon}.svg" alt="${icon}" style="--rot: ${index * (360 / itemCount)}" />`
+    const circle = index < 16 ? circle1 : circle2
+    const itemCount = 16
+    circle.innerHTML += `<div class="dev-icon" style="--rot: ${index * (360 / itemCount)}"><img src="icons/${icon}.svg" alt="${icon}" /></div>`
   })
 }
 
